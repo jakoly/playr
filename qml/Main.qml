@@ -1,5 +1,6 @@
 import QtQuick
 import QtQuick.Controls
+import QtQuick.Controls 2.15
 
 ApplicationWindow {
     visible: true
@@ -8,7 +9,14 @@ ApplicationWindow {
     title: "Playr - A music player"
 
     Button {
-        text: "Hello"
-        anchors.centerIn: parent
+    id: playButton
+    property bool isPlaying: false
+
+    text: isPlaying ? "⏸" : "▶"
+
+    onClicked: {
+        isPlaying = !isPlaying
+        player.togglePlayPause()  // C++ Funktion aufrufen
     }
+}
 }
