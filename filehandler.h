@@ -11,7 +11,7 @@ class FileHandler : public QObject {
 public:
     explicit FileHandler(QObject* parent = nullptr);
 
-    std::vector<std::string> newFiles;
+    QStringList newFiles;
 
 public slots:
     void handleFiles(const QList<QUrl>& urls);

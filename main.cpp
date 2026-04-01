@@ -2,6 +2,7 @@
 #include <QQmlApplicationEngine>
 #include <QQmlContext>
 #include <QFile>
+#include <QFileInfo>
 #include <QJsonDocument>
 #include <QJsonObject>
 #include <QJsonArray>
@@ -29,7 +30,6 @@ QJsonObject readJson(const QString& path)
 int main(int argc, char *argv[])
 {
     QGuiApplication app(argc, argv);
-
     QQmlApplicationEngine engine;
 
     Player player;
@@ -37,18 +37,18 @@ int main(int argc, char *argv[])
 
     engine.rootContext()->setContextProperty("player", &player);
     engine.rootContext()->setContextProperty("fileHandler", &fileHandler);
-    engine.rootContext()->setContextProperty("fileList", "Hallo Welt!");
-
-    
-    FileHandler handler;
-    // Timer erstellen
+    engine.rootContext()->setContextProperty("fileList", QString(""));
     QTimer timer;
-
-    // Was jede Sekunde passieren soll:
     QObject::connect(&timer, &QTimer::timeout, [&]() {
-        for (int i = 0; i < handler.newFiles.size(); i++) {
+        // fileHandler statt handler verwenden!
+        if (!fileHandler.newFiles.empty()) {
             QVariant wert = engine.rootContext()->contextProperty("fileList");
-            QString text = wert.toString() + QString::fromStdString(handler.newFiles[i]);
+            QString text = wert.toString();
+
+            for (const QString& file : fileHandler.newFiles) {
+                text += QFileInfo(file).fileName() + "\n";
+            }
+            fileHandler.newFiles.clear();
 
             engine.rootContext()->setContextProperty("fileList", text);
         }

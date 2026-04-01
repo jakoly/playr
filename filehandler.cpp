@@ -13,7 +13,7 @@ void FileHandler::handleFiles(const QList<QUrl>& urls) {
         QString localPath = url.toLocalFile();
         if (!localPath.isEmpty()) {
             paths << localPath;
-            newFiles.emplace_back(localPath.toStdString());
+            newFiles.append(localPath);
             qDebug() << "Datei erhalten:" << localPath;
         }
     }
