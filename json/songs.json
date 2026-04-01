@@ -1,0 +1,16 @@
+{
+    "allSongs": [
+        {
+            "title": "Song 1",
+            "artist": "Artist 1",
+            "path": "C:/Music/song1.mp3",
+            "duration": 213
+        },
+        {
+            "title": "Song 2",
+            "artist": "Artist 2",
+            "path": "C:/Music/song2.mp3",
+            "duration": 185
+        }
+    ]
+}

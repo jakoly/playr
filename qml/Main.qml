@@ -7,6 +7,51 @@ ApplicationWindow {
     width: 800
     height: 500
     title: "Playr - A music player"
+    color: "darkgrey"
+
+    Rectangle {
+        id: dropArea
+        width: window.width/4
+        height: 300
+        anchors.right: parent.right
+        anchors.rightMargin: 10
+        color: dropHandler.containsDrag ? "#cce5ff" : "#f0f0f0"
+        border.color: dropHandler.containsDrag ? "#0066cc" : "#aaaaaa"
+        border.width: 2
+
+        DropArea {
+            id: dropHandler
+            anchors.fill: parent
+
+            // Nur Dateien akzeptieren
+            onEntered: (drag) => {
+                drag.accepted = drag.hasUrls
+            }
+
+            onDropped: (drop) => {
+                if (drop.hasUrls) {
+                    fileHandler.handleFiles(drop.urls)  // C++ aufrufen
+                }
+            }
+        }
+
+        Text {
+            anchors.centerIn: parent
+            text: dropHandler.containsDrag
+                ? "Loslassen zum Ablegen"
+                : "Dateien hier ablegen"
+            color: "#555"
+            font.pixelSize: 16
+        }
+    }
+
+    Text {
+        id: songList
+        anchors.left: parent.left
+        anchors.leftMargin: 100
+        anchors.topMargin: 100
+        text: fileList
+    }
 
     Rectangle {
         property bool isPlaying: false
@@ -14,7 +59,7 @@ ApplicationWindow {
 
         anchors.bottom: parent.bottom
 
-        color: "lightgrey"
+        color: "black"
         width: window.width
         height: 125
 
