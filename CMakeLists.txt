@@ -8,7 +8,7 @@ set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
 set(CMAKE_AUTOUIC ON)
 
-find_package(Qt6 REQUIRED COMPONENTS Core Gui Qml Quick)
+find_package(Qt6 REQUIRED COMPONENTS Core Gui Qml Quick Widgets Multimedia)
 
 qt_policy(SET QTP0001 NEW)
 qt_policy(SET QTP0004 NEW)
@@ -18,6 +18,7 @@ qt_add_executable(playr
     player.cpp
     filehandler.cpp
     filehandler.h
+    public.h
 )
 
 qt_add_qml_module(playr
@@ -34,4 +35,6 @@ target_link_libraries(playr
         Qt6::Gui
         Qt6::Qml
         Qt6::Quick
+        Qt6::Widgets
+        Qt6::Multimedia
 )

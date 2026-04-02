@@ -1,5 +1,6 @@
 import QtQuick
 import QtQuick.Controls 2.15
+import QtQuick.Dialogs
 
 ApplicationWindow {
     id: window
@@ -54,7 +55,6 @@ ApplicationWindow {
     }
 
     Rectangle {
-        property bool isPlaying: false
         property string songTitel: ""
 
         anchors.bottom: parent.bottom
@@ -70,14 +70,12 @@ ApplicationWindow {
             anchors.verticalCenter: parent.verticalCenter
             anchors.verticalCenterOffset: -20  // Negativer Wert = nach oben
 
-            font.pixelSize: 32
+            font.pixelSize: 30
             width: 50
             height: 50
 
-            text: parent.isPlaying ? "⏸" : "▶"
-
+            text: player.isPlaying ? "⏸️" : "▶️"
             onClicked: {
-                parent.isPlaying = !parent.isPlaying
                 player.togglePlayPause()
             }
         }
@@ -120,6 +118,43 @@ ApplicationWindow {
             width: window.width-100
         }
 
+        Slider {
+            id: volumeControle
+
+            anchors.top: parent.top
+            anchors.right: parent.right
+            anchors.margins: 10
+
+            width: 100
+            height: 20
+
+            from: 0
+            to: 100
+            value: 50
+
+            background: Rectangle {
+                height: 4
+                radius: 2
+                color: "#444"
+
+                Rectangle {
+                    width: volumeControle.visualPosition * parent.width
+                    height: parent.height
+                    color: "#00cc88"
+                    radius: 2
+                }
+            }
+
+            handle: Rectangle {
+                width: 12
+                height: 12
+                radius: 6
+                color: "#00cc88"
+                y: (volumeControle.height - height) / 2
+                x: volumeControle.visualPosition * (volumeControle.width - width)
+            }
+        }
+
         
     } 
 
@@ -129,8 +164,30 @@ ApplicationWindow {
 
         spacing: 10
 
-        Rectangle { width: 50; height: 50; color: "red" }
+        Button {
+            id: openAudioFile
+        
+
+            font.pixelSize: 10
+            width: 50
+            height: 50
+
+            text: "open"
+
+            onClicked: fileDialog.open()
+        }
+
         Rectangle { width: 50; height: 50; color: "green" }
         Rectangle { width: 50; height: 50; color: "blue" }
     }
+
+    FileDialog {
+        id: fileDialog
+        nameFilters: ["Audio files (*.mp3 *.wav *.flac)"]
+
+        onAccepted: {
+            player.openAudioFile(fileDialog.selectedFile)
+        }
+    }
 }
+
