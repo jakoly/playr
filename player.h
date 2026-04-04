@@ -31,6 +31,8 @@ signals:
     void artistChanged();
 
 private:
+    void addSong(const QString& title, const QString& path);
+    void loadSongs();
     QMediaPlayer *M_Player;
     QAudioOutput *audioOutput;
     bool m_isPlaying = false;

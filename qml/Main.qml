@@ -8,7 +8,7 @@ ApplicationWindow {
     width: 820
     height: 540
     title: "Playr"
-    color: "#F5F5F7"
+    color: '#e6e6e6'
 
     // ── Sidebar ───────────────────────────────────────────────
     Rectangle {

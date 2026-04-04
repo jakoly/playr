@@ -1,10 +1,12 @@
 build/
 CMakeFiles/
+json/
 CMakeCache.txt
 cmake_install.cmake
 Makefile
 *.exe
 *.obj
 *.o
+*.json
 .vs/
 .DS_Store
