@@ -121,3 +121,41 @@ void Player::openAudioFile(const QUrl &fileUrl)
 
     playSong(fileUrl);
 }
+
+void Player::removeSong(const QString& path)
+{
+    QJsonArray allSongs;
+
+    QFile file("../json/songs.json");
+
+    // 1. Datei lesen
+    if (file.open(QIODevice::ReadOnly)) {
+        QJsonDocument doc = QJsonDocument::fromJson(file.readAll());
+        file.close();
+
+        allSongs = doc.object()["allSongs"].toArray();
+    }
+
+    // 2. Song entfernen (nach path match)
+    QJsonArray updatedSongs;
+
+    for (const QJsonValue& value : allSongs) {
+        QJsonObject obj = value.toObject();
+
+        if (obj["path"].toString() != path) {
+            updatedSongs.append(obj);
+        }
+    }
+
+    // 3. Neue JSON schreiben
+    QJsonObject root;
+    root["allSongs"] = updatedSongs;
+
+    if (file.open(QIODevice::WriteOnly)) {
+        file.write(QJsonDocument(root).toJson(QJsonDocument::Indented));
+        file.close();
+    }
+
+    // 4. Optional: Signal für QML
+    emit songRemoved(path);
+}

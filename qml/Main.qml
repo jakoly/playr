@@ -157,8 +157,18 @@ ApplicationWindow {
 
         Connections {
             target: player
+
             function onSongAdded(name, path) {
                 songModel.append({ name: name, path: path })
+            }
+
+            function onSongRemoved(path) {
+                for (let i = 0; i < songModel.count; i++) {
+                    if (songModel.get(i).path === path) {
+                        songModel.remove(i)
+                        break
+                    }
+                }
             }
         }
         // Leer-Zustand
@@ -216,7 +226,6 @@ ApplicationWindow {
                 color: delegateArea.containsMouse ? "#EFEFF4" : "transparent"
                 Behavior on color { ColorAnimation { duration: 80 } }
 
-                // Trennlinie
                 Rectangle {
                     anchors.bottom: parent.bottom
                     anchors.left: parent.left
@@ -235,7 +244,6 @@ ApplicationWindow {
                     anchors.rightMargin: 8
                     spacing: 12
 
-                    // Index-Nummer / Play-Icon
                     Rectangle {
                         width: 28
                         height: 28
@@ -253,7 +261,6 @@ ApplicationWindow {
                         }
                     }
 
-                    // Songname
                     Text {
                         text: name
                         font.pixelSize: 13
@@ -265,12 +272,33 @@ ApplicationWindow {
                     }
                 }
 
+                // 🔹 Kontextmenü
+                Menu {
+                    id: contextMenu
+
+                    MenuItem {
+                        text: "Remove"
+                        onTriggered: {
+                            player.removeSong(path)
+                        }
+                    }
+                }
+
                 MouseArea {
                     id: delegateArea
                     anchors.fill: parent
                     hoverEnabled: true
                     cursorShape: Qt.PointingHandCursor
-                    onClicked: player.openAudioFile("file:///" + path)
+
+                    acceptedButtons: Qt.LeftButton | Qt.RightButton
+
+                    onClicked: (mouse) => {
+                        if (mouse.button === Qt.RightButton) {
+                            contextMenu.popup(mouse.x + parent.x, mouse.y + parent.y)
+                        } else if (mouse.button === Qt.LeftButton) {
+                            player.openAudioFile("file:///" + path)
+                        }
+                    }
                 }
             }
         }

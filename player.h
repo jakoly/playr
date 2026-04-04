@@ -17,6 +17,7 @@ public:
 
     Q_INVOKABLE void togglePlayPause();
     Q_INVOKABLE void openAudioFile(const QUrl &fileUrl);
+    Q_INVOKABLE void removeSong(const QString &path);
 
     bool isPlaying() const { return m_isPlaying; }
     QString songName() const { return m_songName; }
@@ -29,6 +30,7 @@ signals:
     void songAdded(const QString& name, const QString& path);
     void songNameChanged();
     void artistChanged();
+    void songRemoved(const QString &path);
 
 private:
     void addSong(const QString& title, const QString& path);

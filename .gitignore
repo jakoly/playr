@@ -3,6 +3,7 @@ CMakeFiles/
 json/
 CMakeCache.txt
 cmake_install.cmake
+songs.json
 Makefile
 *.exe
 *.obj
