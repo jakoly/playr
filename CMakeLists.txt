@@ -16,9 +16,7 @@ qt_policy(SET QTP0004 NEW)
 qt_add_executable(playr
     main.cpp
     player.cpp
-    filehandler.cpp
-    filehandler.h
-    public.h
+    player.h
 )
 
 qt_add_qml_module(playr

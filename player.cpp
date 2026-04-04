@@ -2,6 +2,8 @@
 #include <QDebug>
 #include <QMediaPlayer>
 #include <QAudioOutput>
+#include <QFileInfo>
+#include <QMediaMetaData>
 
 Player::Player(QObject *parent)
     : QObject(parent)
@@ -24,21 +26,6 @@ void Player::togglePlayPause()
     }
 }
 
-void Player::openAudioFile(const QUrl &fileUrl)
-{
-    if (fileUrl.isEmpty())
-        return;
-
-    M_Player->setSource(fileUrl);
-    M_Player->play(); // direkt starten
-
-    // ist jetzt playing
-    m_isPlaying = true;
-    emit isPlayingChanged();
-
-    qDebug() << "Playing:" << fileUrl;
-}
-
 void Player::updatePlayingState()
 {
     bool playing = (M_Player->playbackState() == QMediaPlayer::PlayingState);
@@ -46,4 +33,34 @@ void Player::updatePlayingState()
         m_isPlaying = playing;
         emit isPlayingChanged();
     }
+}
+
+void Player::playSong(QUrl songPath)
+{
+    M_Player->setSource(songPath);
+
+    connect(M_Player, &QMediaPlayer::metaDataChanged, this, [this]() {
+        m_songName = M_Player->metaData().value(QMediaMetaData::Title).toString();
+        m_artist = M_Player->metaData().value(QMediaMetaData::AlbumArtist).toString();
+        emit songNameChanged();
+        emit artistChanged();
+    });
+
+
+    M_Player->play();
+    m_isPlaying = true;
+    m_songName = QFileInfo(songPath.toLocalFile()).baseName();
+    emit isPlayingChanged();
+    emit songNameChanged();
+}
+
+void Player::openAudioFile(const QUrl &fileUrl)
+{
+    if (fileUrl.isEmpty())
+        return;
+
+    QString fileUrlString = fileUrl.toLocalFile();
+
+
+    playSong(fileUrl);
 }

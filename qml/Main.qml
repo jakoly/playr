@@ -10,42 +10,6 @@ ApplicationWindow {
     title: "Playr - A music player"
     color: "darkgrey"
 
-    Rectangle {
-        id: dropArea
-        width: window.width/4
-        height: 300
-        anchors.right: parent.right
-        anchors.rightMargin: 10
-        color: dropHandler.containsDrag ? "#cce5ff" : "#f0f0f0"
-        border.color: dropHandler.containsDrag ? "#0066cc" : "#aaaaaa"
-        border.width: 2
-
-        DropArea {
-            id: dropHandler
-            anchors.fill: parent
-
-            // Nur Dateien akzeptieren
-            onEntered: (drag) => {
-                drag.accepted = drag.hasUrls
-            }
-
-            onDropped: (drop) => {
-                if (drop.hasUrls) {
-                    fileHandler.handleFiles(drop.urls)  // C++ aufrufen
-                }
-            }
-        }
-
-        Text {
-            anchors.centerIn: parent
-            text: dropHandler.containsDrag
-                ? "Loslassen zum Ablegen"
-                : "Dateien hier ablegen"
-            color: "#555"
-            font.pixelSize: 16
-        }
-    }
-
     Text {
         id: songList
         anchors.left: parent.left
@@ -63,6 +27,25 @@ ApplicationWindow {
         width: window.width
         height: 125
 
+        Text {
+            id: songName
+
+            anchors.left: parent.left
+            anchors.top: parent.top
+            anchors.topMargin: 20
+            anchors.leftMargin: 20
+            
+            text: player ? player.songName : ""
+            color: "white"
+            font.pixelSize: 25
+        }
+
+        Text {
+            text: player ? player.artist : ""
+            color: "grey"
+            font.pixelSize: 16
+        }
+
         Button {
             id: playButton
             
@@ -74,7 +57,7 @@ ApplicationWindow {
             width: 50
             height: 50
 
-            text: player.isPlaying ? "⏸️" : "▶️"
+            text: player ? (player.isPlaying ? "⏸️" : "▶️") : "▶️"
             onClicked: {
                 player.togglePlayPause()
             }
