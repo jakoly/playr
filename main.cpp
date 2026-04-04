@@ -2,6 +2,7 @@
 #include <QQmlApplicationEngine>
 #include <QQmlContext>
 #include <QDebug>
+
 #include "player.h"
 
 int main(int argc, char *argv[])

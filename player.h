@@ -26,6 +26,7 @@ public:
 
 signals:
     void isPlayingChanged();
+    void songAdded(const QString& name, const QString& path);
     void songNameChanged();
     void artistChanged();
 
@@ -35,6 +36,8 @@ private:
     bool m_isPlaying = false;
     QString m_songName = "[song name]";
     QString m_artist = "";
+
+    QStringList allSongs;
 
 private slots:
     void updatePlayingState();
