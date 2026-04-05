@@ -8,6 +8,8 @@ set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
 set(CMAKE_AUTOUIC ON)
 
+set(APP_ICON_RESOURCE_WINDOWS res/app.rc)
+
 find_package(Qt6 REQUIRED COMPONENTS Core Gui Qml Quick Widgets Multimedia)
 
 qt_policy(SET QTP0001 NEW)
@@ -17,6 +19,10 @@ qt_add_executable(playr
     main.cpp
     player.cpp
     player.h
+
+    res/app.rc
+
+    ${APP_ICON_RESOURCE_WINDOWS}
 )
 
 qt_add_qml_module(playr

@@ -7,7 +7,7 @@ ApplicationWindow {
     visible: true
     width: 820
     height: 540
-    title: "Playr"
+    title: "Playr - Music, stripped back"
     color: '#e6e6e6'
 
     // ── Sidebar ───────────────────────────────────────────────
