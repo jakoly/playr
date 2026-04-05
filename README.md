@@ -17,7 +17,7 @@ A clean, native desktop music player — no accounts, no subscriptions, no noise
 
 ![Qt](https://img.shields.io/badge/Qt-6.x-41CD52?style=flat-square&logo=qt&logoColor=white)
 ![C++](https://img.shields.io/badge/C++-17-00599C?style=flat-square&logo=cplusplus&logoColor=white)
-![Platform](https://img.shields.io/badge/Platform-Windows%20%7C%20macOS%20%7C%20Linux-lightgrey?style=flat-square)
+![Platform](https://img.shields.io/badge/Platform-Windows-lightgrey?style=flat-square)
 ![License](https://img.shields.io/badge/License-MIT-C85F3C?style=flat-square)
 
 <br/>
