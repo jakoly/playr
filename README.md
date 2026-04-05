@@ -24,7 +24,10 @@ A clean, native desktop music player — no accounts, no subscriptions, no noise
 
 </div>
 
----
+<div align="center">
+<img src="res/branding/Screenshot.png" alt="Playr Logo" width="600"/>
+</div>
+
 
 ## What is Playr?
 
