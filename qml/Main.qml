@@ -15,7 +15,7 @@ ApplicationWindow {
         id: sidebar
         width: 220
         height: parent.height
-        color: "#FFFFFF"
+        color: "#F5F5F7"
 
         Rectangle {
             anchors.right: parent.right
@@ -67,19 +67,19 @@ ApplicationWindow {
                 width: parent.width
                 height: 36
                 radius: 8
-                color: "#007AFF"
+                color: "#C85F3C"
 
                 Row {
                     anchors.verticalCenter: parent.verticalCenter
                     anchors.left: parent.left
                     anchors.leftMargin: 12
                     spacing: 8
-                    Text { text: "♪"; font.pixelSize: 14; color: "#FFFFFF" }
+                    Text { text: "♪"; font.pixelSize: 14; color: "#F2EDE0" }
                     Text {
                         text: "Songs"
                         font.pixelSize: 13
                         font.weight: Font.Medium
-                        color: "#FFFFFF"
+                        color: "#F2EDE0"
                         anchors.verticalCenter: parent.verticalCenter
                     }
                 }
@@ -90,6 +90,7 @@ ApplicationWindow {
                 height: 36
                 radius: 8
                 color: "transparent"
+                visible: false
 
                 Row {
                     anchors.verticalCenter: parent.verticalCenter
@@ -122,12 +123,12 @@ ApplicationWindow {
             Row {
                 anchors.centerIn: parent
                 spacing: 6
-                Text { text: "+"; font.pixelSize: 16; color: "#007AFF"; anchors.verticalCenter: parent.verticalCenter }
+                Text { text: "+"; font.pixelSize: 16; color: "#C85F3C"; anchors.verticalCenter: parent.verticalCenter }
                 Text {
                     text: "Add Music"
                     font.pixelSize: 13
                     font.weight: Font.Medium
-                    color: "#007AFF"
+                    color: "#C85F3C"
                     anchors.verticalCenter: parent.verticalCenter
                 }
             }
@@ -248,7 +249,7 @@ ApplicationWindow {
                         width: 28
                         height: 28
                         radius: 6
-                        color: delegateArea.containsMouse ? "#007AFF" : "#EEEEF0"
+                        color: delegateArea.containsMouse ? "#C85F3C" : "#EEEEF0"
                         anchors.verticalCenter: parent.verticalCenter
                         Behavior on color { ColorAnimation { duration: 80 } }
 
@@ -257,7 +258,7 @@ ApplicationWindow {
                             text: delegateArea.containsMouse ? "▶" : (index + 1).toString()
                             font.pixelSize: delegateArea.containsMouse ? 10 : 11
                             font.weight: Font.Medium
-                            color: delegateArea.containsMouse ? "#FFFFFF" : "#8E8E93"
+                            color: delegateArea.containsMouse ? "#F5F5F7" : "#8E8E93"
                         }
                     }
 
@@ -311,7 +312,7 @@ ApplicationWindow {
         anchors.left: sidebar.right
         anchors.right: parent.right
         height: 110
-        color: "#FFFFFF"
+        color: "#F5F5F7"
 
         Rectangle {
             anchors.top: parent.top
@@ -387,7 +388,7 @@ ApplicationWindow {
             // Play / Pause
             Rectangle {
                 width: 44; height: 44; radius: 22
-                color: playArea.pressed ? "#0055CC" : playArea.containsMouse ? "#0066DD" : "#007AFF"
+                color: playArea.pressed ? "#0055CC" : playArea.containsMouse ? "#0066DD" : "#C85F3C"
                 Behavior on color { ColorAnimation { duration: 80 } }
                 scale: playArea.pressed ? 0.93 : 1.0
                 Behavior on scale { NumberAnimation { duration: 80; easing.type: Easing.OutQuad } }
@@ -403,7 +404,7 @@ ApplicationWindow {
                     onPaint: {
                         var ctx = getContext("2d")
                         ctx.clearRect(0, 0, width, height)
-                        ctx.fillStyle = "#FFFFFF"
+                        ctx.fillStyle = "#F5F5F7"
                         if (playing) {
                             ctx.fillRect(2, 1, 4.5, 16)
                             ctx.fillRect(11.5, 1, 4.5, 16)
@@ -481,7 +482,7 @@ ApplicationWindow {
                 Rectangle {
                     width: progressBar.visualPosition * parent.width
                     height: parent.height; radius: 2
-                    color: "#007AFF"
+                    color: "#C85F3C"
                 }
             }
 
@@ -489,48 +490,8 @@ ApplicationWindow {
                 x: progressBar.leftPadding + progressBar.visualPosition * (progressBar.availableWidth - width)
                 y: progressBar.topPadding + progressBar.availableHeight / 2 - height / 2
                 width: 12; height: 12; radius: 6
-                color: "#007AFF"
+                color: "#C85F3C"
             }
-        }
-
-        // Volume rechts
-        Row {
-            anchors.right: parent.right
-            anchors.rightMargin: 28
-            anchors.verticalCenter: parent.verticalCenter
-            spacing: 8
-
-            Text { text: "🔈"; font.pixelSize: 12; color: "#8E8E93"; anchors.verticalCenter: parent.verticalCenter }
-
-            Slider {
-                id: volumeSlider
-                width: 80
-                from: 0; to: 100; value: 50
-                anchors.verticalCenter: parent.verticalCenter
-
-                background: Rectangle {
-                    x: volumeSlider.leftPadding
-                    y: volumeSlider.topPadding + volumeSlider.availableHeight / 2 - height / 2
-                    width: volumeSlider.availableWidth
-                    height: 3; radius: 2
-                    color: "#E5E5EA"
-
-                    Rectangle {
-                        width: volumeSlider.visualPosition * parent.width
-                        height: parent.height; radius: 2
-                        color: "#007AFF"
-                    }
-                }
-
-                handle: Rectangle {
-                    x: volumeSlider.leftPadding + volumeSlider.visualPosition * (volumeSlider.availableWidth - width)
-                    y: volumeSlider.topPadding + volumeSlider.availableHeight / 2 - height / 2
-                    width: 12; height: 12; radius: 6
-                    color: "#007AFF"
-                }
-            }
-
-            Text { text: "🔊"; font.pixelSize: 12; color: "#8E8E93"; anchors.verticalCenter: parent.verticalCenter }
         }
     }
 

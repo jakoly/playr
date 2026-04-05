@@ -9,6 +9,7 @@ set(CMAKE_AUTORCC ON)
 set(CMAKE_AUTOUIC ON)
 
 set(APP_ICON_RESOURCE_WINDOWS res/app.rc)
+set(CMAKE_PREFIX_PATH "C:/Qt/6.9.1/msvc2022_64")
 
 find_package(Qt6 REQUIRED COMPONENTS Core Gui Qml Quick Widgets Multimedia)
 
@@ -19,10 +20,7 @@ qt_add_executable(playr
     main.cpp
     player.cpp
     player.h
-
     res/app.rc
-
-    ${APP_ICON_RESOURCE_WINDOWS}
 )
 
 qt_add_qml_module(playr
@@ -41,4 +39,11 @@ target_link_libraries(playr
         Qt6::Quick
         Qt6::Widgets
         Qt6::Multimedia
+)
+
+# JSON-Ordner in den Build-Ordner kopieren
+add_custom_command(TARGET playr POST_BUILD
+    COMMAND ${CMAKE_COMMAND} -E copy_directory
+    ${CMAKE_SOURCE_DIR}/json
+    $<TARGET_FILE_DIR:playr>/json
 )

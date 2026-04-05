@@ -15,9 +15,7 @@ int main(int argc, char *argv[])
     engine.rootContext()->setContextProperty("player", &player);
     engine.rootContext()->setContextProperty("fileList", QString(""));
 
-    engine.load(QUrl::fromLocalFile(
-        QCoreApplication::applicationDirPath() + "/../qml/Main.qml"
-    ));
+    engine.loadFromModule("playr", "Main");  // ← das ist die Änderung
 
     if (engine.rootObjects().isEmpty())
         return -1;
