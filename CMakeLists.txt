@@ -16,7 +16,7 @@ find_package(Qt6 REQUIRED COMPONENTS Core Gui Qml Quick Widgets Multimedia)
 qt_policy(SET QTP0001 NEW)
 qt_policy(SET QTP0004 NEW)
 
-qt_add_executable(playr
+qt_add_executable(playr WIN32
     main.cpp
     player.cpp
     player.h
