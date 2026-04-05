@@ -35,7 +35,7 @@ Playr is a local music player built for people who own their music and want to h
 
 No sign-in. No internet required. No background services. Just your collection, always ready.
 
----
+
 
 ## Features
 
