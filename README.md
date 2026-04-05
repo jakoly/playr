@@ -3,7 +3,7 @@
 <br/>
 
 <!-- Logo -->
-<img src="res/logos/Playr-logo.png" alt="Playr Logo" width="140"/>
+<img src="res/logos/Playr-horizontal.png" alt="Playr Logo" width="140"/>
 
 <br/><br/>
 
