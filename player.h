@@ -2,6 +2,7 @@
 
 #include <QObject>
 #include <QString>
+#include <QMediaPlayer>
 
 class QMediaPlayer;
 class QAudioOutput;
@@ -11,13 +12,19 @@ class Player : public QObject {
     Q_PROPERTY(bool isPlaying READ isPlaying NOTIFY isPlayingChanged)
     Q_PROPERTY(QString songName READ songName NOTIFY songNameChanged)
     Q_PROPERTY(QString artist READ artist NOTIFY artistChanged)
+    Q_PROPERTY(qint64 position READ position NOTIFY positionChanged)
+    Q_PROPERTY(qint64 duration READ duration NOTIFY durationChanged)
 
 public:
     explicit Player(QObject *parent = nullptr);
 
+    qint64 position() const { return M_Player->position(); }
+    qint64 duration() const { return M_Player->duration(); }    
+
     Q_INVOKABLE void togglePlayPause();
     Q_INVOKABLE void openAudioFile(const QUrl &fileUrl);
     Q_INVOKABLE void removeSong(const QString &path);
+    Q_INVOKABLE void setPosition(qint64 pos);
 
     bool isPlaying() const { return m_isPlaying; }
     QString songName() const { return m_songName; }
@@ -31,6 +38,8 @@ signals:
     void songNameChanged();
     void artistChanged();
     void songRemoved(const QString &path);
+    void positionChanged();
+    void durationChanged();
 
 private:
     void addSong(const QString& title, const QString& path);

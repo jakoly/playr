@@ -388,7 +388,7 @@ ApplicationWindow {
             // Play / Pause
             Rectangle {
                 width: 44; height: 44; radius: 22
-                color: playArea.pressed ? "#0055CC" : playArea.containsMouse ? "#0066DD" : "#C85F3C"
+                color: playArea.pressed ? '#b54824' : playArea.containsMouse ? "#b54824" : "#C85F3C"
                 Behavior on color { ColorAnimation { duration: 80 } }
                 scale: playArea.pressed ? 0.93 : 1.0
                 Behavior on scale { NumberAnimation { duration: 80; easing.type: Easing.OutQuad } }
@@ -466,32 +466,64 @@ ApplicationWindow {
         // Progress Slider
         Slider {
             id: progressBar
+            focusPolicy: Qt.NoFocus
             width: 300
             anchors.horizontalCenter: parent.horizontalCenter
             anchors.top: controlButtons.bottom
             anchors.topMargin: 10
-            from: 0; to: 1; value: 0
+            from: 0
+            to: player.duration > 0 ? player.duration : 1
 
-            background: Rectangle {
-                x: progressBar.leftPadding
-                y: progressBar.topPadding + progressBar.availableHeight / 2 - height / 2
-                width: progressBar.availableWidth
-                height: 3; radius: 2
-                color: "#E5E5EA"
+            Binding {
+                target: progressBar
+                property: "value"
+                value: player.position
+                when: !progressBar.pressed
+            }
 
+            onMoved: player.setPosition(value)
+
+            contentItem: Item {
                 Rectangle {
-                    width: progressBar.visualPosition * parent.width
-                    height: parent.height; radius: 2
-                    color: "#C85F3C"
+                    width: progressBar.availableWidth
+                    height: 3
+                    anchors.verticalCenter: parent.verticalCenter
+                    radius: 2
+                    color: "#E5E5EA"
+
+                    Rectangle {
+                        width: progressBar.visualPosition * parent.width
+                        height: parent.height
+                        radius: 2
+                        color: "#C85F3C"
+                    }
                 }
             }
 
             handle: Rectangle {
                 x: progressBar.leftPadding + progressBar.visualPosition * (progressBar.availableWidth - width)
                 y: progressBar.topPadding + progressBar.availableHeight / 2 - height / 2
-                width: 12; height: 12; radius: 6
+                width: 12
+                height: 12
+                radius: 6
                 color: "#C85F3C"
             }
+        }
+
+        function formatTime(ms) {
+            var s = Math.floor(ms / 1000)
+            var m = Math.floor(s / 60)
+            s = s % 60
+            return m + ":" + (s < 10 ? "0" : "") + s
+        }
+
+        Text {
+            text: formatTime(player.position) + " / " + formatTime(player.duration)
+            font.pixelSize: 11
+            color: "#8E8E93"
+            anchors.horizontalCenter: parent.horizontalCenter
+            anchors.top: progressBar.bottom
+            anchors.topMargin: 2
         }
     }
 

@@ -3,7 +3,7 @@ CMakeFiles/
 json/
 CMakeCache.txt
 cmake_install.cmake
-songs.json
+json/songs.json
 Makefile
 *.exe
 *.obj
@@ -11,3 +11,4 @@ Makefile
 *.json
 .vs/
 .DS_Store
+BRANDING.md

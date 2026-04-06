@@ -27,6 +27,12 @@ Player::Player(QObject *parent) : QObject(parent)
         emit artistChanged();
     });
 
+    connect(M_Player, &QMediaPlayer::positionChanged,
+        this, &Player::positionChanged);
+
+    connect(M_Player, &QMediaPlayer::durationChanged,
+            this, &Player::durationChanged);
+
     // WICHTIG: verzögert ausführen
     QTimer::singleShot(0, this, &Player::loadSongs);
 }
@@ -158,4 +164,9 @@ void Player::removeSong(const QString& path)
 
     // 4. Optional: Signal für QML
     emit songRemoved(path);
+}
+
+void Player::setPosition(qint64 pos)
+{
+    M_Player->setPosition(pos);
 }
