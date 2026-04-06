@@ -46,3 +46,8 @@ No sign-in. No internet required. No background services. Just your collection, 
 - **🔊 Volume Control** — Inline slider, no fussing around
 - **🗑 Remove Songs** — Clean up your library at any time
 - **⚡ Native Performance** — Built with C++ and Qt6 — starts in milliseconds
+
+
+
+
+Icon made by Fathema Khanom perfect from www.flaticon.com
